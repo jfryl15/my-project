@@ -72,7 +72,7 @@
   const views = document.querySelectorAll('.view');
   const navItems = document.querySelectorAll('.nav-item[data-view]');
   const viewTitle = document.getElementById('viewTitle');
-  const titleKeys = { dashboard: 'nav_dashboard', inbounds: 'nav_inbounds', traffic: 'nav_traffic', plans: 'nav_plans', servers: 'nav_servers', map: 'nav_map', compare: 'nav_compare', alerts: 'nav_alerts', analytics: 'nav_analytics', live: 'nav_live', notifications: 'nav_notifications', shop: 'nav_shop', ai: 'nav_ai', extensions: 'nav_extensions', diagnostics: 'nav_diagnostics', xray: 'nav_xray', telegram: 'nav_telegram', api: 'nav_api', backup: 'nav_backup', logs: 'nav_logs', security: 'nav_security', settings: 'nav_settings' };
+  const titleKeys = { dashboard: 'nav_dashboard', inbounds: 'nav_inbounds', traffic: 'nav_traffic', plans: 'nav_plans', servers: 'nav_servers', monitoring: 'nav_monitoring', map: 'nav_map', compare: 'nav_compare', alerts: 'nav_alerts', events: 'nav_events', analytics: 'nav_analytics', live: 'nav_live', notifications: 'nav_notifications', shop: 'nav_shop', ai: 'nav_ai', extensions: 'nav_extensions', diagnostics: 'nav_diagnostics', xray: 'nav_xray', telegram: 'nav_telegram', api: 'nav_api', backup: 'nav_backup', logs: 'nav_logs', security: 'nav_security', settings: 'nav_settings' };
 
   function showView(name) {
     views.forEach(v => v.classList.toggle('active', v.id === 'view-' + name));
@@ -86,6 +86,7 @@
     if (name === 'logs' && window.PREMIUM) window.PREMIUM.loadAudit();
     if (name === 'plans' && window.PREMIUM) window.PREMIUM.loadPlans();
     if (name === 'servers' && window.PREMIUM) window.PREMIUM.loadServers();
+    if (name === 'monitoring' && window.PREMIUM) window.PREMIUM.loadMonitoring();
     if (name === 'analytics' && window.PREMIUM) window.PREMIUM.loadAnalytics();
     if (name === 'live' && window.PREMIUM) window.PREMIUM.startLive();
     else if (window.PREMIUM) window.PREMIUM.stopLive();
@@ -96,6 +97,7 @@
     if (name === 'ai' && window.PREMIUM) window.PREMIUM.loadAi();
     if (name === 'extensions' && window.PREMIUM) window.PREMIUM.loadExtensions();
     if (name === 'alerts' && window.PREMIUM) { window.PREMIUM.loadAlerts(); window.PREMIUM.loadThresholds(); }
+    if (name === 'events' && window.PREMIUM) window.PREMIUM.loadEvents();
     if (name === 'map' && window.PREMIUM) window.PREMIUM.loadMap();
     if (name === 'compare' && window.PREMIUM) window.PREMIUM.loadCompare();
     if (name === 'dashboard' && window.PREMIUM) window.PREMIUM.loadMsStrip();
@@ -531,7 +533,7 @@
     openModal('inboundModal');
   }
 
-  document.getElementById('addInboundBtn').addEventListener('click', () => openInboundModal());
+  document.querySelectorAll('#addInboundBtnTop, #addInboundBtn').forEach(btn => btn.addEventListener('click', () => openInboundModal()));
 
   document.getElementById('inboundSaveBtn').addEventListener('click', async () => {
     const uid = document.getElementById('inboundUid').value;

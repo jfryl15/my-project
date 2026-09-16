@@ -40,7 +40,7 @@ from core import security as core_security
 from colo_map import describe_colo
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-APP_VERSION = "3.1.0"
+APP_VERSION = "3.1.1"
 APP_NAME = "ALOO PANEL"
 APP_EDITION = "ULTIMATE"
 PANEL_NAME = os.environ.get("PANEL_NAME", "ALOO PANEL")

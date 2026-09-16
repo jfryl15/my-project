@@ -212,6 +212,24 @@ const STANNG = (() => {
   };
 })();
 
+
+// Global frontend diagnostics: never let one broken feature silently fail.
+window.addEventListener('error', (event) => {
+  try {
+    const msg = event?.error?.message || event?.message || 'JavaScript error';
+    console.error('[ALOO]', msg, event?.error || '');
+    if (window.STANNG && typeof window.STANNG.toast === 'function') window.STANNG.toast(msg, 'error', 5500);
+  } catch (_) {}
+});
+window.addEventListener('unhandledrejection', (event) => {
+  try {
+    const reason = event?.reason;
+    const msg = reason?.detail || reason?.message || String(reason || 'Unhandled promise rejection');
+    console.error('[ALOO]', msg, reason || '');
+    if (window.STANNG && typeof window.STANNG.toast === 'function') window.STANNG.toast(msg, 'error', 5500);
+  } catch (_) {}
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   STANNG.applyStoredTheme();
   document.documentElement.setAttribute('lang', STANNG.getLang());

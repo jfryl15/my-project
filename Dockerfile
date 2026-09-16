@@ -38,6 +38,7 @@ ENV PYTHONUNBUFFERED=1 \
 RUN chmod +x /app/entrypoint.sh \
     && mkdir -p /app/data /var/log/nginx /var/run
 
+VOLUME ["/app/data"]
 
 EXPOSE 8000
 
